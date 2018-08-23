@@ -91,6 +91,7 @@ void choose(int choice, int value)
 	switch(choice)
 	{
 		case 0:
+			// pthread_create(&p1,NULL,insert,NULL);
 			insert(value);
 			break;
 		case 1:
