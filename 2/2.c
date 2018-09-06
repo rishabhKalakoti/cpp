@@ -1,41 +1,35 @@
-#include <stdio.h>
-#include <pthread.h>
+# include <stdio.h>
+# include <pthread.h>
 
-void * thread_sum(void *);
-int sum=0;
-pthread_mutex_t mVar=PTHREAD_MUTEX_INITIALIZER;
-
+#define N_THREAD 5
+long long int ans=1;
+pthread_mutex_t mutex1=PTHREAD_MUTEX_INITIALIZER;
+void *fact(void *no)
+{
+   int *x = (int*)no;
+   int i = *x;
+    
+   
+        pthread_mutex_lock(&mutex1);
+        ans = ans * i;
+        pthread_mutex_unlock(&mutex1);
+    
+    pthread_exit(NULL);    
+}
 int main()
 {
-    int n,i;
-    pthread_t tid;
-    printf("Enter n:");
+    int i,n,j;
+    pthread_t tid[N_THREAD];
+    printf("Enter Number:");
     scanf("%d",&n);    
-    pthread_create(&tid,NULL,thread_sum,(void *)&n);
-    // odd numbers
-    for(i=1;i<=n;i=i+2)
-    {
-        pthread_mutex_lock(&mVar);
-        sum=sum + i;
-        pthread_mutex_unlock(&mVar);
-    }
-    
-    pthread_join(tid,NULL);
-    
-    printf("Sum: %d \n",sum);
+	for(i=1;i<=n;){
+		for(j=0;j<N_THREAD && i<=n;j++,i++){
+			pthread_create(&tid[j],NULL,fact,(void*)&i);
+			pthread_join(tid[j],NULL);
+		}
+	}
+    printf("Factorial : %lld \n",ans);
     return 0;
 }
 
-void *thread_sum(void *no)
-{
-    int *n,i;
-    n=(int*)no;
-    // even numbers
-    for(i=2;i<=*n;i=i+2)
-    {
-        pthread_mutex_lock(&mVar);
-        sum=sum + i;
-        pthread_mutex_unlock(&mVar);
-    }
-    pthread_exit(NULL);    
-}
+
