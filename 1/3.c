@@ -11,7 +11,7 @@ and then display the results of the computation
 #include<math.h>
 #define N 100
 double* arr;
-double *root()
+void *root()
 {
 	arr = (double*)malloc(sizeof(double)*N);	
 	int i;
@@ -19,16 +19,18 @@ double *root()
 	{
 		arr[i]=(double)sqrt(i);
 	}
-	return (double*)arr;
+	return (void*)arr;
 }
 
 int main()
 {
 	pthread_t calc;
 	double *roots;
+	void *rootX;
 	pthread_create(&calc,NULL,root,NULL);
 	printf("Computing Square roots of numbers from 0 to %d...\n",N);
-	pthread_join(calc,&roots);
+	pthread_join(calc,&rootX);
+	roots=(double*)rootX;
 	int i;
 	for(i=0;i<N;i++)
 	{

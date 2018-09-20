@@ -8,7 +8,7 @@ struct student
     char name[50];
     int roll;
     int marks[5];
-};
+}s[N];
 
 void* func(void* arr){
 	int* x = (int*)arr;
@@ -25,7 +25,6 @@ void* func(void* arr){
 
 int main()
 {
-	struct student s[N];
 	int i;
 	for(i=0;i<N;i++)
 	{

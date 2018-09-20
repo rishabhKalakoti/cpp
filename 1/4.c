@@ -88,23 +88,30 @@ void delete(int value)
 
 void choose(int choice, int value)
 {
+	//pthread_t calc;
 	switch(choice)
 	{
 		case 0:
-			// pthread_create(&p1,NULL,insert,NULL);
+			// pthread_create(&calc,NULL,insert,NULL);
 			insert(value);
 			break;
 		case 1:
+			// pthread_create(&calc,NULL,delete,NULL);
 			delete(value);
 			break;
 		case 2:
+			// pthread_create(&calc,NULL,search,NULL);
 			search(value);
 			break;
 		default:
 			printf("\tInvalid selection\n");
 	}
+	//p_thread.join(calc,NULL);
 }
-
+void* thread()
+{
+	choose(rand() % 3,rand() % MAXVAL);
+}
 int main()
 {
 	int i=0;
@@ -113,7 +120,9 @@ int main()
 	{
 		printf("%d:\n",i+1);
 		pthread_mutex_lock(&m);
-		choose(rand() % 3,rand() % MAXVAL);
+		pthread_t calc;
+		pthread_create(&calc,NULL,&thread,NULL);
+		pthread_join(calc,NULL);
 		pthread_mutex_unlock(&m);
 	}
 	return 0;

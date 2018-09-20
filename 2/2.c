@@ -8,11 +8,9 @@ void *fact(void *no)
 {
    int *x = (int*)no;
    int i = *x;
-    
-   
-        pthread_mutex_lock(&mutex1);
-        ans = ans * i;
-        pthread_mutex_unlock(&mutex1);
+pthread_mutex_lock(&mutex1);
+ans = ans * i;
+pthread_mutex_unlock(&mutex1);
     
     pthread_exit(NULL);    
 }

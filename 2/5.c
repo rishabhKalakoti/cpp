@@ -28,10 +28,8 @@ int main()
 	int i=0;
 	for(i=0;i<5;i++){
 		scanf("%d",&s.salary[i]);
-		
 	}
 	pthread_create(&tid,NULL,func,(void*)&s.salary);
 	pthread_join(tid,NULL);
 	return 0;
-
 }
