@@ -1,5 +1,5 @@
-# include <stdio.h>
-# include <pthread.h>
+# include<stdio.h>
+# include<pthread.h>
 
 
 int TotalSum=0;
@@ -16,23 +16,20 @@ void *thread_sum(void *no)
     
     pthread_exit(NULL);    
 }
-main()
+int main()
 {
     int i,n,j;
     pthread_t tid[5];
-    printf("Enter Number Up to Which You want to Sum :");
+    printf("Enter n:\n");
     scanf("%d",&n);    
-   	for(i=0;i<=n;i++){
-   		for(j=0;j<5 && i<=n;j++,i++){
-   			pthread_create(&tid[j],NULL,thread_sum,(void*)&i);
-   			pthread_join(tid[j],NULL);
-   			
-   		}
-   		i--;
-   	}
-  
-    
+	for(i=0;i<=n;i++){
+		for(j=0;j<5 && i<=n;j++,i++){
+			pthread_create(&tid[j],NULL,thread_sum,(void*)&i);
+			pthread_join(tid[j],NULL);
+		}
+		i--;
+	}
     printf("Final Sum is : %d \n",TotalSum);
-//    return 0;
+    return 0;
 }
 

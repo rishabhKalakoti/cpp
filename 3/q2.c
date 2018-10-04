@@ -7,7 +7,7 @@ void main(int argc, char *argv[])
     FILE *fp;
  
     if (argc == 1) {
-        printf("File name Missing.Please enter a filename in command line argument\n");
+        printf("No filename provided\n");
         exit(0);
     }
  
